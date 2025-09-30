@@ -11,12 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun SecondScreen(name: String, navitagateToFirstScreen:(String) -> Unit, navitagateToThirdScreen:() -> Unit){
+fun SecondScreen(name: String, age: String, navitagateToFirstScreen:(String,String) -> Unit){
 
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
@@ -25,21 +24,17 @@ fun SecondScreen(name: String, navitagateToFirstScreen:(String) -> Unit, navitag
     ) {
         Text("This is the Second Screen", fontSize = 24.sp)
         Spacer(modifier = Modifier.height(16.dp))
-        Text("Welcome to 2nd Screen $name", fontSize = 24.sp)
+        Text("Welcome to 2nd Screen $name", fontSize = 16.sp)
+        Spacer(modifier = Modifier.height(4.dp))
+        Text("Your age is  $age", fontSize = 16.sp)
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = {
-            navitagateToThirdScreen()
-            navitagateToFirstScreen(name)
+            navitagateToFirstScreen(name,age)
         }) {
-            Text("Navigate to Third Screen")
+            Text("Navigate to First Screen")
         }
     }
 
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun SecondScreenPreview() {
-    SecondScreen("Ahmad Saad",{},{})
-}
