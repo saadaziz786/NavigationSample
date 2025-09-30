@@ -14,7 +14,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.navigationsample.ui.theme.FirstScreen
 import com.example.navigationsample.ui.theme.NavigationSampleTheme
 import com.example.navigationsample.ui.theme.SecondScreen
-import com.example.navigationsample.ui.theme.ThirdScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,27 +35,19 @@ fun MyApp( modifier: Modifier) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "FirstScreen") {
         composable(route = "FirstScreen") {
-            FirstScreen { name ->
-                navController.navigate("SecondScreen/$name")
+            FirstScreen { name, age ->
+                navController.navigate("SecondScreen/$name/$age")
             }
         }
-        composable(route = "SecondScreen/{name}") {
+        composable(route = "SecondScreen/{name}/{age}") {
             val name = it.arguments?.getString("name") ?: "No name"
+            val age = it.arguments?.getString("age") ?: "No age"
             SecondScreen(
-                name = name,
-                navitagateToFirstScreen = { passedName ->
+                name = name, age = age,
+                navitagateToFirstScreen = { passedName, passedAge ->
                     navController.navigate("FirstScreen")
-                },
-                navitagateToThirdScreen = {
-                    navController.navigate("ThirdScreen")
                 }
             )
-        }
-
-        composable(route = "ThirdScreen") {
-            ThirdScreen {
-                navController.navigate("FirstScreen")
-            }
         }
     }
 }
